@@ -131,19 +131,23 @@ document.getElementById("submitReview").addEventListener("click", function () {
 
     let hostels = JSON.parse(localStorage.getItem("hostels")) || [];
 
-    // Find the hostel to update the review
     let hostelIndex = hostels.findIndex(h => h.name.toLowerCase() === hostelName.toLowerCase());
 
     if (hostelIndex !== -1) {
-        hostels[hostelIndex].review = reviewText;
-        localStorage.setItem("hostels", JSON.stringify(hostels));
+        // Add review to the correct hostel
+        hostels[hostelIndex].reviews.push(reviewText);
+        updateStorage(hostels);
         alert("Review added successfully!");
-        loadHostels();
     } else {
         alert("Hostel not found! Please enter a valid hostel name.");
     }
 
-    // Clear the form
+    // Clear form
     document.getElementById("reviewHostelName").value = "";
     document.getElementById("reviewText").value = "";
 });
+
+    // Clear the form
+    document.getElementById("reviewHostelName").value = "";
+    document.getElementById("reviewText").value = "";
+
